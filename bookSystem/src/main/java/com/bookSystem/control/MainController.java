@@ -9,9 +9,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.bookSystem.DTO.BookListDto;
+import com.bookSystem.DTO.BookSearchDto;
 import com.bookSystem.DTO.MemberDTO;
 import com.bookSystem.Service.BookService;
 import com.bookSystem.Service.MemberService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class MainController {
@@ -30,7 +34,7 @@ public class MainController {
 	}
 	
 	@PostMapping("/signIn")
-	public String login( MemberDTO memberDTO , Model model ) {
+	public String login( MemberDTO memberDTO, HttpSession session, Model model ) {
 		System.out.println( memberDTO.getEmail() );
 		
 		// 로그인처리를 진행하려면 service 의 메서드를 호출한다. 
@@ -39,13 +43,44 @@ public class MainController {
 		// 그냥 service쪽 메서드를 호출하면 된다.
 		boolean isSuccess = memberService.signIn( memberDTO );
 		
-		if(isSuccess) {
+		if(isSuccess) { // 로그인 성공 시 동작
+			session.setAttribute("user", memberDTO.getEmail());
 			return "redirect:/";
 		}
 		// 로그인 실패시 index.html 다시 돌아가기  
 		model.addAttribute("fail", 1);
 		return "index";
 	}
+	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.removeAttribute("user");
+		return "redirect:/";
+	}
+	
+	// 도서 검색 부분
+	@GetMapping("/bookSearch")
+	public String search(Model model) {
+		
+		model.addAttribute("bookSearchDto",new BookSearchDto() );
+		
+		return "book/search";
+	}
+	@GetMapping("/bookSearch/result")
+	public String searchResult(BookSearchDto bookSearchDto, Model model ) {
+		
+		List<BookListDto> bookListDtos =  bookService.bookSearch(bookSearchDto);
+		model.addAttribute("bookListDtos", bookListDtos);
+		
+		return "book/search";
+	}
+	
+	
+	
+	// 도서 검색 부분 끝
+	
+	
+	
 	
 //	@GetMapping("/test")
 //	public String main(Model model) {
