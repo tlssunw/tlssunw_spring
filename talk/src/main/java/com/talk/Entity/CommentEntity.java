@@ -16,8 +16,12 @@ public class CommentEntity {
 	private String content;
 	private LocalDate writerDate;
 	
-	public static CommentEntity of(CommentDto commentDto) {
+	public static CommentEntity from(CommentDto commentDto) {
 		CommentEntity commentEntity = new CommentEntity();
+		
+		commentEntity.setBoardId(commentDto.getBoardId());
+		commentEntity.setMemberId(commentDto.getMemberId());
+		commentEntity.setContent(commentDto.getContent());
 		
 		return commentEntity; 
 	}
