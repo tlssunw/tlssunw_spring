@@ -18,7 +18,7 @@ public interface BoardRepository {
 	//게시글 수정
 	public int update(BoardEntity boardEntity);
 	//게시글 목록
-	public List<BoardEntity> findByIdBtween(Map<String, Integer> map);
+	public List<BoardEntity> findByIdBetween(Map<String, Integer> map);
 	//전체 게시글 갯수
 	public int findByAllCount();
 	//최근글

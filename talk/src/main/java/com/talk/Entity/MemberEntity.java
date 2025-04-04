@@ -15,7 +15,7 @@ public class MemberEntity {
 	private String email;
 	private String tel;
 	
-	public static MemberEntity fromf(MemberSignUpDto memberSignUpDto) {
+	public static MemberEntity from(MemberSignUpDto memberSignUpDto) {
 		MemberEntity memberEntity = new MemberEntity();
 		
 		memberEntity.setMemberId(memberSignUpDto.getMemberId());

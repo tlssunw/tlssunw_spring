@@ -11,7 +11,7 @@ public class BoardDto {
 	private int id;
 	private String title;
 	private String content;
-	private String filName;
+	private String fileName;
 	
 	public static BoardEntity to(BoardDto boardDto) {
 		BoardEntity boardEntity = new BoardEntity();
@@ -19,7 +19,7 @@ public class BoardDto {
 		boardEntity.setId(boardDto.getId());
 		boardEntity.setTitle(boardDto.getTitle());
 		boardEntity.setContent(boardDto.getContent());
-		boardEntity.setFileName(boardDto.getFilName());
+		boardEntity.setFileName(boardDto.getFileName());
 		
 		return boardEntity;
 	}

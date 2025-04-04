@@ -9,7 +9,9 @@
 	<link rel = "stylesheet" href="/css/default.css">
 	<script src = "/javascript/default.js"></script>
 	
-	<th:block layout:fragment="css"></th:block>
+	<th:block layout:fragment="css">
+		<link rel="stylesheet" href="/css/board.css">
+	</th:block>
 	<th:block layout:fragment="script"></th:block>
 	
 	
@@ -22,8 +24,12 @@
 	</div>
 	
 	<th:block th:replace="layout/menu :: menu"></th:block>
-	<th:block th:replace="layout/signIn :: signIn"></th:block>
-	<th:block th:replace="layout/signUp :: signUp"></th:block>
+	
+	
+	<th:block th:if="${session.user==null}">
+		<th:block th:replace="layout/signIn :: signIn"></th:block>
+		<th:block th:replace="layout/signUp :: signUp"></th:block>
+	</th:block>
 	
 </body>
 </html>
